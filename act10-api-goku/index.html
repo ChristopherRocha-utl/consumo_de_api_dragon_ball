@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>VUE - Dragon Ball API</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/gokuStyle.css" />
+    </head>
+    <body>
+        <header class="navbar p-3 text-center d-block">
+            <span class="h2 text-white">DRAGON BALL API</span>
+        </header>
+
+        <section class="container-fluid text-center" id="contenedor">
+            <div class="row justify-content-center">
+                <h2 class="col-12 mt-3">Personajes</h2>
+                
+                <div class="card col-md-3 m-3 p-3" v-for="personaje in personajesFiltrados" :key="personaje.id">
+                    <img class="card-img-top" :src="personaje.image" :title="personaje.name">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning">{{personaje.name}}</h5>
+                        <p class="card-text">Ki: {{personaje.ki}}</p>
+                        <h5 class="card-title">Raza: {{personaje.race}}</h5>
+                        <button class="btn btn-db w-100" @click="verDetalles(personaje.id)">Ver más......</button>
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="container d-flex justify-content-between mt-4 mb-5">
+                <button class="btn filter-btn" @click="filtrarPorCategoria('todos')">Todos</button>
+                <button class="btn filter-btn" @click="filtrarPorCategoria('Saiyan')">Saiyans</button>
+                <button class="btn filter-btn" @click="filtrarPorCategoria('Namekian')">Namekians</button>
+                <button class="btn filter-btn" @click="filtrarPorCategoria('Human')">Humans</button>
+                <button class="btn filter-btn" @click="filtrarPorCategoria('Frieza Race')">Frieza Race</button>
+                <button class="btn filter-btn" @click="filtrarPorCategoria('Android')">Androids</button>
+            </div>
+
+            <footer class="fixed-bottom bg-dark text-center text-white p-2">
+                <span class="h4">Frameworks: Vue.js + Axios</span>
+            </footer>
+        </section> 
+
+        <script src="js/vue3.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/funciones.js"></script>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Personaje</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/gokuStyle.css">
+</head>
+<body class="d-flex align-items-center" style="min-height: 100vh;">
+    <div id="app-detalles" class="container">
+        <div v-if="personaje" class="card mx-auto" style="max-width: 800px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img :src="personaje.image" class="img-fluid rounded-start p-2" :alt="personaje.name">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-warning">{{ personaje.name }}</h2>
+                        <hr border-color="white">
+                        <p><strong>Género:</strong> {{ personaje.gender }}</p>
+                        <p><strong>Raza:</strong> {{ personaje.race }}</p>
+                        <p><strong>Descripción:</strong></p>
+                        <p class="text-justify">{{ personaje.description }}</p>
+                        <button onclick="window.close()" class="btn btn-db">Cerrar Ventana</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="text-center text-white">
+            <h3>Cargando datos del guerrero...</h3>
+        </div>
+    </div>
+
+    <script src="js/vue3.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return { personaje: null }
+            },
+            mounted() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                axios.get(`https://dragonball-api.com/api/characters/${id}`)
+                    .then(res => {
+                        this.personaje = res.data;
+                    });
+            }
+        }).mount('#app-detalles');
+    </script>
+</body>
+</html>
